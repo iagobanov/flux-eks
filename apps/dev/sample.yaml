@@ -12,7 +12,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: podinfo
-  namespace: default
+  namespace: dev
 spec:
   interval: 5m
   releaseName: default-podinfo
@@ -26,4 +26,4 @@ spec:
         namespace: dev
       interval: 10m
   values:
-    replicaCount: 1
+    replicaCount: 3
