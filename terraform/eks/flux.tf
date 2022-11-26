@@ -31,6 +31,8 @@ data "flux_install" "main" {
   target_path = var.target_path
 }
 
+data "aws_caller_identity" "current" {}
+
 data "flux_sync" "main" {
   target_path = var.target_path
   url         = "ssh://git@github.com/${var.github_owner}/${var.repository_name}.git"
@@ -133,6 +135,13 @@ resource "github_repository_file" "install" {
   file       = "${var.target_path}gotk-components.yaml"
   content    = data.flux_install.main.content
   branch     = var.branch
+  overwrite_on_create = true
+
+  lifecycle {
+    ignore_changes = [
+      file,content
+    ]
+  }
 }
 
 resource "github_repository_file" "sync" {
@@ -140,6 +149,13 @@ resource "github_repository_file" "sync" {
   file       = "${var.target_path}gotk-sync.yaml"
   content    = data.flux_sync.main.content
   branch     = var.branch
+  overwrite_on_create = true
+
+  lifecycle {
+    ignore_changes = [
+      file,content
+    ]
+  }
 }
 
 resource "github_repository_file" "kustomize" {
@@ -147,4 +163,11 @@ resource "github_repository_file" "kustomize" {
   file       = "${var.target_path}kustomization.yaml"
   content    = data.flux_sync.main.kustomize_content
   branch     = var.branch
+  overwrite_on_create = true
+
+  lifecycle {
+    ignore_changes = [
+      file,content
+    ]
+  }
 }

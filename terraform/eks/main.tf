@@ -54,7 +54,7 @@ module "eks_blueprints" {
 
   vpc_id             = module.vpc.vpc_id
   private_subnet_ids = module.vpc.private_subnets
-  
+
   node_security_group_additional_rules = {
     ingress_nodes_karpenter_port = {
       description                   = "Cluster API to Nodegroup for Karpenter"
@@ -83,6 +83,16 @@ module "eks_blueprints" {
   }
 
   tags = local.tags
+
+
+}
+
+resource "null_resource" "eks_context" {
+  provisioner "local-exec" {
+    command = "aws eks --region ${var.aws_region} update-kubeconfig --name ${var.cluster_name}"
+  }
+
+  depends_on = [module.eks_blueprints]
 }
 
 module "eks_blueprints_kubernetes_addons" {
@@ -123,7 +133,7 @@ module "eks_blueprints_kubernetes_addons" {
       }
     ]
   }
-  
+
   tags = local.tags
 
   depends_on = [module.eks_blueprints.managed_node_groups]
