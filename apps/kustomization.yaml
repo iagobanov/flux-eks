@@ -5,4 +5,4 @@ resources:
 - gotk-sync.yaml
 - gotk-components.yaml
 - sources
-# - dev
+- dev
