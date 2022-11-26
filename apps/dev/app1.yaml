@@ -10,57 +10,22 @@ spec:
   url: https://helm.github.io/examples
 
 ---
-# Application Specific manifests
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
 metadata:
-  labels:
-    app: sample-app
-  name: sample-app
+  name: hello-world
   namespace: dev
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: sample-app
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 2
-      maxUnavailable: 0
-  template:
-    metadata:
-      labels:
-        app: sample-app
+  interval: 5m
+  releaseName: hello-world
+  chart:
     spec:
-      containers:
-      - image: 650470201566.dkr.ecr.us-east-1.amazonaws.com/sample-app:1.5.3 # {"$imagepolicy": "flux-system:sample-app"}
-        name: sample-app
-        env:
-        - name: AMBIENTE
-          value: PRD
-        ports:
-        - containerPort: 8080
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "256m"
-          limits:
-            memory: "512Mi"
-            cpu: "512m"
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: sample-app
-  name: sample-app
-  namespace: dev
-spec:
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 8080
-  selector:
-    app: sample-app
-  type: LoadBalancer
+      chart: hello-world
+      version: 0.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: hello-world
+        namespace: dev
+      interval: 10m
+  values:
+    replicaCount: 1
