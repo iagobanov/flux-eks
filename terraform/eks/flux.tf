@@ -59,8 +59,28 @@ locals {
     }
   ]
   envs = ["dev", "homol", "prod"]
+  known_hosts = "github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg="
 }
 
+resource "tls_private_key" "main" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P256"
+}
+
+resource "kubernetes_secret" "main" {
+  depends_on = [kubectl_manifest.install]
+
+  metadata {
+    name      = data.flux_sync.main.secret
+    namespace = data.flux_sync.main.namespace
+  }
+
+  data = {
+    identity       = tls_private_key.main.private_key_pem
+    "identity.pub" = tls_private_key.main.public_key_pem
+    known_hosts    = local.known_hosts
+  }
+}
 resource "kubernetes_namespace" "flux_system" {
   metadata {
     name = "flux-system"
@@ -96,4 +116,35 @@ resource "kubectl_manifest" "sync" {
   for_each   = { for v in local.sync : lower(join("/", compact([v.data.apiVersion, v.data.kind, lookup(v.data.metadata, "namespace", ""), v.data.metadata.name]))) => v.content }
   depends_on = [kubernetes_namespace.flux_system]
   yaml_body  = each.value
+}
+
+
+# Github
+
+resource "github_repository_deploy_key" "main" {
+  title      = "flux-deploy-key"
+  repository = var.repository_name
+  key        = tls_private_key.main.public_key_openssh
+  read_only  = false
+}
+
+resource "github_repository_file" "install" {
+  repository = var.repository_name
+  file       = data.flux_install.main.path
+  content    = data.flux_install.main.content
+  branch     = var.branch
+}
+
+resource "github_repository_file" "sync" {
+  repository = var.repository_name
+  file       = data.flux_sync.main.path
+  content    = data.flux_sync.main.content
+  branch     = var.branch
+}
+
+resource "github_repository_file" "kustomize" {
+  repository = var.repository_name
+  file       = data.flux_sync.main.kustomize_path
+  content    = data.flux_sync.main.kustomize_content
+  branch     = var.branch
 }

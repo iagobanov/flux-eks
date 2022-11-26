@@ -15,7 +15,7 @@ variable "github_owner" {
 }
 
 variable "repository_name" {
-  default = "eks-flux"
+  default = "flux-eks"
 }
 
 variable "branch" {
