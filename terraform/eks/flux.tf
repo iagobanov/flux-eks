@@ -83,6 +83,7 @@ resource "kubernetes_secret" "main" {
     known_hosts    = local.known_hosts
   }
 }
+
 resource "kubernetes_namespace" "flux_system" {
   metadata {
     name = "flux-system"
