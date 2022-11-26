@@ -6,7 +6,7 @@ metadata:
   namespace: prod
 spec:
   interval: 5m
-  releaseName: prod-podinfo
+  releaseName: podinfo
   chart:
     spec:
       chart: podinfo
