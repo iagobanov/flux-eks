@@ -25,4 +25,4 @@ spec:
         name: podinfo
       interval: 10m
   values:
-    replicaCount: 1
+    replicaCount: 3

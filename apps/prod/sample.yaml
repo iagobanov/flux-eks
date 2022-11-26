@@ -15,7 +15,7 @@ metadata:
   namespace: prod
 spec:
   interval: 5m
-  releaseName: default-podinfo
+  releaseName: podinfo
   chart:
     spec:
       chart: podinfo
@@ -25,4 +25,4 @@ spec:
         name: podinfo
       interval: 10m
   values:
-    replicaCount: 1
+    replicaCount: 3
