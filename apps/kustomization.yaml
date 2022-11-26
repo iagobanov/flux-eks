@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
 - gotk-sync.yaml
 - gotk-components.yaml
-- sources
 - dev
 - homol
 - prod
