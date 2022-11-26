@@ -1,33 +1,28 @@
+---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: bitnami
-  namespace: flux-system
+  name: podinfo
+  namespace: default
 spec:
   interval: 10m
-  url: https://charts.bitnami.com/bitnami
+  url: https://stefanprodan.github.io/podinfo
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: nginx
-  namespace: dev
+  name: podinfo
+  namespace: default
 spec:
-  releaseName: nginx-ingress-controller
+  interval: 5m
+  releaseName: default-podinfo
   chart:
     spec:
-      chart: nginx-ingress-controller
+      chart: podinfo
+      version: 5.0.3
       sourceRef:
         kind: HelmRepository
-        name: bitnami
-        namespace: flux-system
-      version: "9.x"
-  interval: 1h0m0s
-  install:
-    remediation:
-      retries: 3
-  # Default values
-  # https://github.com/bitnami/charts/blob/master/bitnami/nginx-ingress-controller/values.yaml
+        name: podinfo
+      interval: 10m
   values:
-    service:
-      type: NodePort
+    replicaCount: 1
