@@ -1,9 +1,9 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: sample-chart
-  namespace: flux-system
+  name: podinfo
+  namespace: default
 spec:
-  interval: 10m0s
-  url: https://helm.github.io/examples
+  interval: 10m
+  url: https://stefanprodan.github.io/podinfo
