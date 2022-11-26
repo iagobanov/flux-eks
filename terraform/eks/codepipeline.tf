@@ -48,9 +48,7 @@ resource "aws_iam_role_policy" "example" {
         "*"
       ],
       "Action": [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents"
+        "*"
       ]
     },
     {
