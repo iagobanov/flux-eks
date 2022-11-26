@@ -1,13 +1,3 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: podinfo
-  namespace: homol
-spec:
-  interval: 10m
-  url: https://stefanprodan.github.io/podinfo
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -15,7 +5,7 @@ metadata:
   namespace: homol
 spec:
   interval: 5m
-  releaseName: default-podinfo
+  releaseName: homol-podinfo
   chart:
     spec:
       chart: podinfo

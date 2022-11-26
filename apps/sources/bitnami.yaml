@@ -2,28 +2,28 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: podinfo
+  name: bitnami
   namespace: dev
 spec:
-  interval: 10m
-  url: https://stefanprodan.github.io/podinfo
+  interval: 30m
+  url: https://charts.bitnami.com/bitnami
 
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: podinfo
+  name: bitnami
   namespace: homol
 spec:
-  interval: 10m
-  url: https://stefanprodan.github.io/podinfo
+  interval: 30m
+  url: https://charts.bitnami.com/bitnami
 
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: podinfo
+  name: bitnami
   namespace: prod
 spec:
-  interval: 10m
-  url: https://stefanprodan.github.io/podinfo
+  interval: 30m
+  url: https://charts.bitnami.com/bitnami
