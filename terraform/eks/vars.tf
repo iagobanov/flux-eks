@@ -27,5 +27,5 @@ variable "target_path" {
 }
 
 variable "flux_token" {
-  default = ""
+  default = "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"
 }

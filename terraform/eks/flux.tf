@@ -130,21 +130,21 @@ resource "github_repository_deploy_key" "main" {
 
 resource "github_repository_file" "install" {
   repository = var.repository_name
-  file       = data.flux_install.main.path
+  file       = "${var.target_path}gotk-components.yaml"
   content    = data.flux_install.main.content
   branch     = var.branch
 }
 
 resource "github_repository_file" "sync" {
   repository = var.repository_name
-  file       = data.flux_sync.main.path
+  file       = "${var.target_path}gotk-sync.yaml"
   content    = data.flux_sync.main.content
   branch     = var.branch
 }
 
 resource "github_repository_file" "kustomize" {
   repository = var.repository_name
-  file       = data.flux_sync.main.kustomize_path
+  file       = "${var.target_path}kustomization.yaml"
   content    = data.flux_sync.main.kustomize_content
   branch     = var.branch
 }
