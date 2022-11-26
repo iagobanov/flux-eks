@@ -32,7 +32,7 @@ data "flux_install" "main" {
 }
 
 data "flux_sync" "main" {
-  target_path = "cluster/"
+  target_path = "apps/"
   url         = "ssh://git@github.com/${var.github_owner}/${var.repository_name}.git"
   branch      = var.branch
 }
