@@ -23,6 +23,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: podinfo
+        namespace: dev
       interval: 10m
   values:
     replicaCount: 1
