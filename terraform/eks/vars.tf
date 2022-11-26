@@ -22,6 +22,10 @@ variable "branch" {
   default = "main"
 }
 
+variable "target_path" {
+  default = "apps/"
+}
+
 variable "flux_token" {
   default = ""
 }
