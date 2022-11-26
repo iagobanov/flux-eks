@@ -6,3 +6,5 @@ resources:
 - gotk-components.yaml
 - sources
 - dev
+- homol
+- prod
