@@ -23,5 +23,5 @@ variable "branch" {
 }
 
 variable "flux_token" {
-  default = "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"
+  default = ""
 }
