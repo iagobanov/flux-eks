@@ -16,14 +16,14 @@ resource "aws_ecr_repository" "sample" {
   }
 }
 
-# resource "aws_ecr_repository" "helm_sample" {
-#   name                 = "${var.app_name}"
-#   image_tag_mutability = "MUTABLE"
+resource "aws_ecr_repository" "helm_sample" {
+  name                 = "${var.app_name}-helm"
+  image_tag_mutability = "MUTABLE"
 
-#   image_scanning_configuration {
-#     scan_on_push = true
-#   }
-# }
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
 
 resource "aws_iam_role" "example" {
   name = "example"
