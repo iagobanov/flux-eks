@@ -6,7 +6,7 @@ metadata:
   namespace: dev
 spec:
   interval: 10m
-  url: ecr://073346639909.dkr.ecr.us-east-1.amazonaws.com/nginx-app-helm:0.1.0
+  url: ecr://073346639909.dkr.ecr.us-east-1.amazonaws.com/nginx-app-helm
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
