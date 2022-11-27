@@ -1,13 +1,16 @@
 ---
-apiVersion: helm.fluxcd.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   labels:
-    app: nginx-app
-  name: nginx-app
+    app: nginx-app-helm
+  name: nginx-app-helm
   namespace: dev
 spec:
   chart:
     name: nginx-app-helm
-    repository: ecr://073346639909.dkr.ecr.region.amazonaws.com/nginx-app-helm
+    repository: ecr://073346639909.dkr.ecr.us-east-1.amazonaws.com/nginx-helm-app
     version: 0.1.0
+    namespace: dev
+  values:
+    replicaCount: 2
