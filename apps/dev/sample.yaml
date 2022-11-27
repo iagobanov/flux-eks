@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: nginx-app
+  name: nginx-app-helm
   namespace: dev
 spec:
   interval: 10m
@@ -27,3 +27,4 @@ spec:
       interval: 10m
   values:
     replicaCount: 3
+
