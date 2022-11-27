@@ -20,4 +20,3 @@ spec:
     replicaCount: 3
 
 
-helm repo add nginx-app-helm ecr://073346639909.dkr.ecr.us-east-1.amazonaws.com/nginx-app-helm
