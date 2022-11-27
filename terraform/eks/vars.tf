@@ -29,3 +29,7 @@ variable "target_path" {
 variable "flux_token" {
   default = ""
 }
+
+variable "app_name" {
+  default = "nginx-app"
+}

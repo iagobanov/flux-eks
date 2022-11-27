@@ -8,7 +8,7 @@ resource "aws_s3_bucket_acl" "example" {
 }
 
 resource "aws_ecr_repository" "sample" {
-  name                 = var.repository_name
+  name                 = var.app_name
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
@@ -16,14 +16,14 @@ resource "aws_ecr_repository" "sample" {
   }
 }
 
-resource "aws_ecr_repository" "helm_sample" {
-  name                 = "${var.repository_name}-helm"
-  image_tag_mutability = "MUTABLE"
+# resource "aws_ecr_repository" "helm_sample" {
+#   name                 = "${var.app_name}"
+#   image_tag_mutability = "MUTABLE"
 
-  image_scanning_configuration {
-    scan_on_push = true
-  }
-}
+#   image_scanning_configuration {
+#     scan_on_push = true
+#   }
+# }
 
 resource "aws_iam_role" "example" {
   name = "example"
@@ -125,7 +125,7 @@ resource "aws_codebuild_project" "example" {
      }
     environment_variable {
         name = "IMAGE_REPO_NAME"
-        value = var.repository_name
+        value = var.app_name
       }
     environment_variable {
         name = "IMAGE_TAG"
